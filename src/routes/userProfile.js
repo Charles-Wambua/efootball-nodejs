@@ -26,7 +26,7 @@ const upload = multer({ storage });
 // POST route to create a user profile
 router.post("/addProfile", upload.single("photo"), async (req, res) => {
   try {
-    const { userName, number } = req.body;
+    const { userName, number, isAdmin } = req.body;
     const photo = req.file.path; // Assuming the uploaded file path is accessible from req.file.path
 
     // Check if the photo field is provided
@@ -39,6 +39,7 @@ router.post("/addProfile", upload.single("photo"), async (req, res) => {
       photo,
       userName,
       number,
+      isAdmin,
     });
 
     // Save the user profile to the database
@@ -46,13 +47,23 @@ router.post("/addProfile", upload.single("photo"), async (req, res) => {
 
     // Store the user ID in localStorage
     const userId = userProfile._id.toString();
-    const token = jwt.sign({ userId: userProfile._id }, "secret-key", {
+    const token = jwt.sign({ userId: userProfile._id, isAdmin }, "secret-key", {
       expiresIn: "1h", // Token expiration time
     });
-    res.status(201).json({ message: "User profile created successfully", userId, token });
+
+    res
+      .status(201)
+      .json({
+        message: "User profile created successfully",
+        userId,
+        token,
+        isAdmin: userProfile.isAdmin,
+      });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "An error occurred while creating the user profile" });
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating the user profile" });
   }
 });
 

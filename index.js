@@ -1,7 +1,7 @@
 const express = require("express");
 const http = require("http");
 const socketIO = require("socket.io");
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); 
 const cors = require("cors");
 const resultsRoute = require("./src/routes/results");
 const { Chat } = require('./src/schemas/chatSchema');
@@ -13,12 +13,12 @@ const payViaMpesa = require('./src/routes/mpesaPayments')
 const loginRoute= require("./src/routes/loginRoute")
 const registerplayers = require("./src/routes/registerLeague")
 const getregisteredplayers = require("./src/routes/registerLeague")
-const postFixtures=require("./src/routes/postFixtures")
-const getFixtures=require("./src/routes/postFixtures")
-// const stk=require("./src/routes/mpesaPayments")
-// const {Server} =require("socket.io")
+
+const fixtures=require("./src/routes/postFixtures")
+
 const app = express();
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({ extended: true }))
+// app.use(cors())
 app.use(cors({ origin: ["https://efootball.onrender.com"],}));
 app.use(express.json());
 app.use("/results", resultsRoute);
@@ -30,8 +30,8 @@ app.use("/mpesa/payments", payViaMpesa)
 app.use("/login", loginRoute)
 app.use("/register-league", registerplayers)
 app.use("/get-registeredPlayers", getregisteredplayers)
-app.use("/postFixtures", postFixtures)
-app.use("/getFixtures", getFixtures)
+app.use("/fixtures", fixtures)
+
 // app.use("/stk", stk)
 
 mongoose

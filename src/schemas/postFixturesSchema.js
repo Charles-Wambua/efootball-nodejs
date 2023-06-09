@@ -15,6 +15,14 @@ const fixtureSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      homeScore: {
+        type: Number,
+        default: null,
+      },
+      awayScore: {
+        type: Number,
+        default: null,
+      },
     },
   ],
 });

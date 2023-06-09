@@ -5,10 +5,17 @@ const RegisteredSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  phoneNumber: Number,
-  
+  phoneNumber: {
+    type: Number,
+    required: true,
+  },
+  approvalStatus: {
+    type: String,
+    enum: ["Pending", "Approved"],
+    default: "Pending",
+  },
 });
 
-const RegisterPlayers = mongoose.model("RegisteredPlayers", RegisteredSchema);
+const RegisteredPlayers = mongoose.model("RegisteredPlayers", RegisteredSchema);
 
-module.exports = RegisterPlayers;
+module.exports = RegisteredPlayers;

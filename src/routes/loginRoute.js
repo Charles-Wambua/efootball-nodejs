@@ -26,7 +26,7 @@ router.post("/login", async (req, res) => {
     });
 
     // Return the user profile and token
-    res.status(200).json({ userId: userProfile._id, token });
+    res.status(200).json({ userId: userProfile._id, token,isAdmin: userProfile.isAdmin,});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred while logging in" });

@@ -13,6 +13,10 @@ const userProfileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isAdmin: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 const UserProfile = mongoose.model("UserProfile", userProfileSchema);
